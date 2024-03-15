@@ -33,7 +33,5 @@ python manage.py runserver
 * OpenCV
 * Dlib
 
-## Credits
-This Project is created under the Guidance of Dr. Yuting Zhang (Director, Cybersecurity), Boston University
 
 
