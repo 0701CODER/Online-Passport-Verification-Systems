@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>2 factor Authentication</title>
+  </head>
+  <body>
+  <h1>2 factor Auth for {{user}}</h1>
+	<img id= "auth" src="{% url 'facecam_feed' user=user %}">
+
+  </body>
+
+  <script>
+  var i = 0;
+  var username = '{{user}}';
+  var url = '/checkAuth/'+username;
+  function foo() {
+    fetch(url)
+    .then(res => res.json())
+    .then(out =>{
+      if (out.auth == true){
+        window.location.replace("/welcome/"+username);
+      }
+    })
+    .catch(err => {throw err});
+    
+    setTimeout(foo, 10000);
+  }
+
+foo();
+
+  </script>
+</html>

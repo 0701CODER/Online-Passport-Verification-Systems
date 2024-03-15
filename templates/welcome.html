@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static%}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Welcome {{user.username}}</h1>
+
+    {% if user.is_authenticated %}
+    <h1>You have Verified Successfully your Passport User Authentication</h1>
+    <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <h1>NOT Authenticated</h1>
+    {% endif %}
+    <img src="{% static '/images/third.jpg'%}" class="image" alt="Second Image" width="1600px">
+</body>
+
+</html>

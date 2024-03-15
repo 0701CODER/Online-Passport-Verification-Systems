@@ -1,0 +1,89 @@
+<!--templates/registration/auth_base.html-->
+<!doctype  html>
+<html  lang="en">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<title>Passport Verification Systems</title>
+</head>
+<body>
+  <div  class="container">
+    <div  class="row justify-content-center">
+      <div  class="col-4">
+      <h1  class="text-center" style="color: rgb(0, 213, 255);">User Auth</h1>
+      {% block content %}
+
+      {% endblock %}
+      </div>
+    </div>
+  </div>
+  <!-- <script>
+      $('#cameraBtn').click(function() {
+   $('#modelWindow').modal('show');
+});
+  </script> -->
+<script>
+    // Grab elements, create settings, etc.
+    var video = document.getElementById('video');
+    var localstream;
+    var imgData;
+  function onCamera(){
+    // Get access to the camera!
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+    //video.src = window.URL.createObjectURL(stream);
+    video.srcObject = stream;
+    localstream = stream;
+    video.play();});
+  }
+}
+
+
+// stop only camera
+function offCamera() {
+  localstream.getTracks()[0].stop();
+}
+
+
+/* Legacy code below: getUserMedia 
+else if(navigator.getUserMedia) { // Standard
+navigator.getUserMedia({ video: true }, function(stream) {
+    video.src = stream;
+    video.play();
+}, errBack);
+} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+navigator.webkitGetUserMedia({ video: true }, function(stream){
+    video.src = window.webkitURL.createObjectURL(stream);
+    video.play();
+}, errBack);
+} else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
+navigator.mozGetUserMedia({ video: true }, function(stream){
+    video.srcObject = stream;
+    video.play();
+}, errBack);
+}
+*/
+// Elements for taking the snapshot
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+// Trigger photo take
+document.getElementById("snap").addEventListener("click", function() {
+context.drawImage(video, 0, 0,canvas.width, canvas.height);
+imgData = canvas.toDataURL('image/jpeg');
+});
+
+
+$("#userForm").submit( function(eventObj) {
+      $("<input />").attr("type", "hidden")
+          .attr("name", "img")
+          .attr("value", imgData)
+          .appendTo("#userForm");
+      return true;
+});
+</script>
+</body>
+</html>
